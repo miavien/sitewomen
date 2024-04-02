@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79f52b5b-3095-4e5d-89c9-0f6a90bfca13" name="Changes" comment="first commit">
+    <list default="true" id="79f52b5b-3095-4e5d-89c9-0f6a90bfca13" name="Changes" comment="new fichi">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sitewomen/women/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/sitewomen/women/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sitewomen/sitewomen/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/sitewomen/sitewomen/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sitewomen/women/templates/women/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/sitewomen/women/templates/women/about.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sitewomen/women/templates/women/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/sitewomen/women/templates/women/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sitewomen/women/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/sitewomen/women/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -34,16 +36,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Python.sitewomen.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/killi/PycharmProjects/sitewomen/sitewomen"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Python.sitewomen.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/killi/PycharmProjects/sitewomen/sitewomen&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\killi\PycharmProjects\sitewomen\sitewomen\women\templates\women" />
@@ -108,11 +110,20 @@
       <option name="project" value="LOCAL" />
       <updated>1711545200156</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="new fichi">
+      <option name="closed" value="true" />
+      <created>1711971557568</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1711971557568</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="first commit" />
+    <MESSAGE value="new fichi" />
+    <option name="LAST_COMMIT_MESSAGE" value="new fichi" />
   </component>
 </project>
