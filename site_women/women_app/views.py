@@ -3,6 +3,12 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
 
+cats_db = [
+    {'id': 1, 'name': 'Актрисы'},
+    {'id': 2, 'name': 'Певицы'},
+    {'id': 3, 'name': 'Спортсменки'},
+]
+
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Добавить статью", 'url_name': 'add_page'},
         {'title': "Обратная связь", 'url_name': 'contact'},
@@ -19,17 +25,24 @@ def index(request):
     data = {
         'menu': menu,
         'posts': data_db,
+        'cat_selected': 0,
     }
     return render(request, 'women_app/index.html', context=data)
 
 def about(request):
-    return render(request, 'women_app/about.html')
+    return render(request, 'women_app/about.html', context={'title': 'О сайте', 'menu': menu})
 
 def show_post(request, post_id):
     return HttpResponse(f'Отображение статьи с id {post_id}')
 
-def categories(request, cat_id):
-    return HttpResponse(f'<h1>Статьи по категориям</h1><p>id: {cat_id}</p>')
+def show_category(request, cat_id):
+    data = {
+        'title': 'Отображение по рубрикам',
+        'menu': menu,
+        'posts': data_db,
+        'cat_selected': cat_id,
+    }
+    return render(request, 'women_app/index.html', context=data)
 
 def categories_slug(request, cat_slug):
     return HttpResponse(f'<h1>Статьи по категориям</h1><p>slug: {cat_slug}</p>')
