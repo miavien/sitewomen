@@ -1,7 +1,8 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse
+from .models import *
 
 cats_db = [
     {'id': 1, 'name': 'Актрисы'},
@@ -21,10 +22,10 @@ data_db = [ {'id': 1, 'title': 'Анджелина Джоли', 'content': 'Би
 
 # Create your views here.
 def index(request):
-    # return HttpResponse(render_to_string('women_app/index.html'))
+    posts = Women.published.all()
     data = {
         'menu': menu,
-        'posts': data_db,
+        'posts': posts,
         'cat_selected': 0,
     }
     return render(request, 'women_app/index.html', context=data)
@@ -32,8 +33,17 @@ def index(request):
 def about(request):
     return render(request, 'women_app/about.html', context={'title': 'О сайте', 'menu': menu})
 
-def show_post(request, post_id):
-    return HttpResponse(f'Отображение статьи с id {post_id}')
+def show_post(request, post_slug):
+    post = get_object_or_404(Women, slug=post_slug)
+
+    data = {
+        'title': post.title,
+        'menu': menu,
+        'post': post,
+        'cat_selected': 1,
+    }
+
+    return render(request, 'women_app/post.html', context=data)
 
 def show_category(request, cat_id):
     data = {
