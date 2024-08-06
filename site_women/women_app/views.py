@@ -10,13 +10,9 @@ menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Войти", 'url_name': 'login'}
 ]
 
-data_db = [ {'id': 1, 'title': 'Анджелина Джоли', 'content': 'Биография Анджелины Джоли', 'is_published': True},
-            {'id': 2, 'title': 'Марго Робби', 'content': 'Биография Марго Робби', 'is_published': False},
-            {'id': 3, 'title': 'Джулия Робертс', 'content': 'Биография Джулии Робертс', 'is_published': True}, ]
-
 # Create your views here.
 def index(request):
-    posts = Women.published.all()
+    posts = Women.published.all().select_related('cat')
     data = {
         'menu': menu,
         'posts': posts,
@@ -41,7 +37,7 @@ def show_post(request, post_slug):
 
 def show_category(request, cat_slug):
     category = get_object_or_404(Category, slug=cat_slug)
-    posts = Women.published.filter(cat_id=category.pk)
+    posts = Women.published.filter(cat_id=category.pk).select_related('cat')
     data = {
         'title': f'Рубрика {category.name}',
         'menu': menu,
@@ -52,7 +48,7 @@ def show_category(request, cat_slug):
 
 def show_tag_postlist(request, tag_slug):
     tag = get_object_or_404(TagPost, slug=tag_slug)
-    posts = tag.tags.filter(is_published=Women.Status.PUBLISHED)
+    posts = tag.tags.filter(is_published=Women.Status.PUBLISHED).select_related('cat')
 
     data = {
         'title': f'Тэг: {tag.tag}',
