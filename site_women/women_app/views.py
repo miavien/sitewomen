@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse
 from .models import *
+from .forms import *
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Добавить статью", 'url_name': 'add_page'},
@@ -68,7 +69,21 @@ def archive(request, year):
     return HttpResponse(f'<h1>Архив по годам</h1><p>{year}</p>')
 
 def addpage(request):
-    return HttpResponse('Добавление статьи')
+    if request.method == 'POST':
+        form = AddPostForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+    else:
+        form = AddPostForm()
+
+    data = {
+        'menu': menu,
+        'title': 'Добавление статьи',
+        'form': form
+    }
+
+    return render(request, 'women_app/add_page.html',
+                  context=data)
 
 def contact(request):
     return HttpResponse('Наши контакты')
