@@ -68,11 +68,20 @@ def archive(request, year):
         return redirect(uri)
     return HttpResponse(f'<h1>Архив по годам</h1><p>{year}</p>')
 
+
+def custom_slugify(value):
+    return slugify(unidecode(value))
+
 def addpage(request):
     if request.method == 'POST':
         form = AddPostForm(request.POST)
         if form.is_valid():
-            print(form.cleaned_data)
+            try:
+                form.cleaned_data['slug'] = custom_slugify(form.cleaned_data['title'])
+                Women.objects.create(**form.cleaned_data)
+                return redirect('home')
+            except:
+                form.add_error(None, 'Ошибка добавления статьи')
     else:
         form = AddPostForm()
 
