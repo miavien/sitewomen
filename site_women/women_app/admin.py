@@ -58,5 +58,6 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
     list_display_links = ('id', 'name')
     ordering = ('id',)
+    exclude = ('slug',)
 
 admin.site.site_header = 'Панель администрирования'

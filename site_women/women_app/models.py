@@ -65,6 +65,11 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('category', kwargs={'cat_slug': self.slug})
 
+    def save(self, *args, **kwargs):
+        transliterated_name = unidecode(self.name)
+        self.slug = slugify(transliterated_name)
+        super().save(*args, **kwargs)
+
 class TagPost(models.Model):
     tag = models.CharField(max_length=100, db_index=True)
     slug = models.CharField(max_length=255, unique=True, db_index=True)
