@@ -61,9 +61,9 @@ class AddPostForm(forms.ModelForm):
         model = Women
         fields = ['title', 'content', 'is_published', 'cat', 'tags', 'husband']
         widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-input'}),
-            'content': forms.Textarea(attrs={'cols': 50, 'rows': 5}),
-            'tags': forms.CheckboxSelectMultiple(),
+            'title': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Введите заголовок'}),
+            'content': forms.Textarea(attrs={'cols': 50, 'rows': 5, 'placeholder': 'Введите содержание'}),
+            'tags': forms.CheckboxSelectMultiple(attrs={'class': 'form-select-multiple'}),
         }
 
     def clean_title(self):
@@ -71,3 +71,6 @@ class AddPostForm(forms.ModelForm):
         if len(title) > 50:
             raise ValidationError('Длина превышает 50 символов')
         return title
+
+class UploadFileForm(forms.Form):
+    file = forms.FileField(label='Файл')
