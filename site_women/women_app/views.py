@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
@@ -25,23 +26,24 @@ def index(request):
 
 
 # функция-обработчик загрузки файлов
-def handle_uploaded_file(f):
-    postfix = str(uuid.uuid4())
-    with open(f"uploads/{f.name}_{postfix}", "wb+") as destination:
-        for chunk in f.chunks():
-            destination.write(chunk)
+# def handle_uploaded_file(f):
+#     postfix = str(uuid.uuid4())
+#     with open(f"uploads/{f.name}_{postfix}", "wb+") as destination:
+#         for chunk in f.chunks():
+#             destination.write(chunk)
 
-
-# здесь вызываем обработчик и достаём из реквеста наш файл
 def about(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            handle_uploaded_file(form.cleaned_data['file'])
+            # handle_uploaded_file(form.cleaned_data['file'])
+            fp = UploadFiles(file=form.cleaned_data['file'])
+            fp.save()
+            return redirect('about')
     else:
         form = UploadFileForm()
-    return render(request, 'women_app/about.html',
-                  context={'title': 'О сайте', 'menu': menu, 'form': form})
+        return render(request, 'women_app/about.html',
+                      context={'title': 'О сайте', 'menu': menu, 'form': form})
 
 
 def show_post(request, post_slug):
@@ -98,7 +100,7 @@ def custom_slugify(value):
 
 def addpage(request):
     if request.method == 'POST':
-        form = AddPostForm(request.POST)
+        form = AddPostForm(request.POST, request.FILES)
         if form.is_valid():
             # try:
             #     form.cleaned_data['slug'] = custom_slugify(form.cleaned_data['title'])

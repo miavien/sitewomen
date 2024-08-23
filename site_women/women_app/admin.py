@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.db.models.functions import Length
+from django.utils.safestring import mark_safe
+
 from .models import *
 
 
@@ -24,7 +26,9 @@ class MarriedFilter(admin.SimpleListFilter):
 
 @admin.register(Women)
 class WomenAdmin(admin.ModelAdmin):
-    list_display = ('title', 'time_create', 'is_published', 'cat', 'bring_info')
+    fields = ['title', 'content', 'photo', 'post_photo', 'cat', 'husband', 'tags']
+    list_display = ('title', 'post_photo', 'time_create', 'is_published', 'cat', 'bring_info')
+
     # для кликабельности
     list_display_links = ('title',)
     # чтобы менять значение в списке всех строк
@@ -33,14 +37,22 @@ class WomenAdmin(admin.ModelAdmin):
     search_fields = ('title', 'cat__name')
     list_filter = (MarriedFilter, 'cat__name', 'is_published')
     exclude = ('is_published',)
-    readonly_fields = ('slug',)
+    readonly_fields = ('slug', 'post_photo')
     filter_horizontal = ('tags',)
+    # для полоски сохранения вверху
+    save_on_top = True
 
     # для пользовательского поля
     # сортировка в данном случае по кол-ву символов поля
     @admin.display(description='Краткое описание', ordering=Length('content'))
     def bring_info(self, women: Women):
         return f'Описание {len(women.content)} символов'
+
+    @admin.display(description='Выбранное фото', ordering=Length('content'))
+    def post_photo(self, women: Women):
+        if women.photo:
+            return mark_safe(f"<img src='{women.photo.url}' width=50>")
+        return 'Без фото'
 
     @admin.action(description='Опубликовать выбранные записи')
     def set_published(self, request, queryset):
@@ -59,5 +71,6 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'name')
     ordering = ('id',)
     exclude = ('slug',)
+
 
 admin.site.site_header = 'Панель администрирования'
